@@ -37,7 +37,7 @@ func main() {
 
 	err = writeIDToFile(allIntegrators)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("an error occurred while writing the ID:", err)
 	}
 
 	err = conn.clearData()
