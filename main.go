@@ -40,8 +40,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	conn.clearData()
-
+	err = conn.clearData()
+	if err != nil {
+		log.Fatal("truncate error:", err)
+	}
 	err = conn.AddDefinition(allIntegrators)
 	if err != nil {
 		fmt.Println("AddDefinition Error:", err)
@@ -183,11 +185,12 @@ func SetupStorage() (*Storage, error) {
 	return &Storage{db: session}, nil
 }
 
-func (s *Storage) clearData() {
+func (s *Storage) clearData() error {
 	if err := s.db.Query(`TRUNCATE platform_attribute_retrieval_db.vendor_attribute_definitions`).Exec(); err != nil {
 		log.Println("truncate error:", err)
-
+		return err
 	}
+	return nil
 }
 
 // Localizations list of attribute definition translations
