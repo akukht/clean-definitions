@@ -187,7 +187,6 @@ func SetupStorage() (*Storage, error) {
 
 func (s *Storage) clearData() error {
 	if err := s.db.Query(`TRUNCATE platform_attribute_retrieval_db.vendor_attribute_definitions`).Exec(); err != nil {
-		log.Println("truncate error:", err)
 		return err
 	}
 	return nil
